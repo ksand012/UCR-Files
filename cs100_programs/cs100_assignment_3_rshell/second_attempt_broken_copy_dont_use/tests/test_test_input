@@ -1,0 +1,12 @@
+touch testthetest.cpp
+test -e testthetest.cpp && echo testthetest.cpp exists
+[ -e testthetest.cpp ] && echo testthetest.cpp exists
+[ -f testthetest.cpp ] && echo file testthetest.cpp exists
+mkdir testthefolder
+test -d testthefolder && echo directory testthefolder exists
+test -f testthetest.cpp && echo file testthetest.cpp exists
+rm testthetest.cpp
+rm -r testthefolder
+[ -d testthefolder ] || echo directory testthefolder does not exist
+test -f testthetest.cpp || echo file testthetest.cpp does not exist
+exit

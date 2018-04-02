@@ -1,0 +1,19 @@
+echo Greetings, Earthling. || ls -a; ps
+ls -a && mkdir french_fries
+rm -r french_fries; ls
+ps
+echo "this is a test" || echo "the first test failed" && ls; ps && history
+mkdir potato_wedges && echo made test directory
+rm -r potato_wedges; ls
+echo testing clear; clear
+echo || ls -m && echo testing || mkdir test_dir
+ps && ls -r
+cat cantfindme || echo testing invalid file to output into terminal :)
+ls -q; ps
+touch test.cpp; echo created test.cpp && rm test.cpp
+echo Juicy potato. || mkdir || ls
+ls -R && ps
+ps; ps || ls && ps
+ls -a || ls && ls
+echo AAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHH SO MANY COMMANDS; echo ikr.  someone make him stop!
+exit
