@@ -1,0 +1,11 @@
+ls >> inputFiles/inputFile1
+ps >> inputFiles/inputFile1
+echo I love it when Lin smiles at me. > outputFile1
+echo Donald Trump is doing amazing things. | wc > outputFile2
+echo Lin is an amazing TA. > outputFile3
+ls > outputFile4
+rm outputFile1
+rm outputFile2
+rm outputFile3
+rm outputFile4
+exit

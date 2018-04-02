@@ -1,0 +1,7 @@
+ls | cat
+ls -a | grep src
+ls | cat | wc
+cat < inputFiles/inputFile1 | tr T-p D-d
+cat < inputFiles/inputFile2 | echo Lin, join me, and we can rule together as TA and student.
+echo I love you, Lin. | wc
+exit

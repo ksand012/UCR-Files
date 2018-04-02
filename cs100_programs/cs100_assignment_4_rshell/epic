@@ -1,0 +1,8 @@
+As the User, we want the code to print a command prompt so we understand what to do.
+As the User, we want to input commands so the program does what we want.
+As the User, we want the code to parse our input for us so we don’t have to know coding.
+As the User, we want the code to tell us if our input is wrong and what is wrong with it so we can fix it without trial and error.
+As the SysAdmin, we want to take in the user’s input so the program knows what code to execute.
+As the SysAdmin, we want the code to split input into individual commands so it’s easy to parse.
+As the SysAdmin, we want the code to handle any number of commands and operator combinations so the code is flexible.
+As the SysAdmin, we want the code to view input after the pound sign as a comment so the code doesn’t execute information that isn’t a command.

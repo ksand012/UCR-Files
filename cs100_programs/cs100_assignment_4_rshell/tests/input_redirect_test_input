@@ -1,0 +1,9 @@
+cat < inputFiles/inputFile2 > outputFile1
+cat < inputFiles/inputFile1 | tr A-Z a-z
+grep 2 < inputFiles/inputFile1 | wc
+cat < inputFiles/inputFile1
+wc < inputFiles/inputFile2
+grep 1 < inputFiles/inputFile2
+tr T-p D-d < inputFiles/inputFile1
+grep it < inputFiles/inputFile2
+exit

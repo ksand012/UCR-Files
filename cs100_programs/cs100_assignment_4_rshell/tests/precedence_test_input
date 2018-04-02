@@ -1,0 +1,8 @@
+(echo This will be the greatest test ever.)
+(echo Believe me. && ls -a) || echo I'm DJT!
+echo We are going to make this test great again. || (ls -R && ls -a) || echo Tacos!
+(ps && ls) || (echo Cats! && echo Birds!)
+(echo The Art of the Test.) || (echo I'm a fraud.)
+((echo Mexico will pay for our tests. && echo We are going to build a big test.) || (echo China. && echo Mexico.)) && ls -a
+(echo TESTS FIRST! && echo ILLEGAL TESTS!) || (echo Bad. && echo Very bad.)
+exit

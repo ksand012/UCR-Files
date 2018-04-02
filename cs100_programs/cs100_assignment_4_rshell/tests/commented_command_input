@@ -1,0 +1,11 @@
+echo hello #world
+ls -a || echo hello world #this should not appear
+ps #this should not appear
+echo test # || ls
+mkdir test_directory #this should not appear
+rm -r test_directory #this should not appear
+echo "This should appear." && "This should still appear." # && echo "But this should not appear."
+echo #this should not appear
+touch canttouchthis.cpp #this should not appear
+rm canttouchthis.cpp #this should not appear
+exit

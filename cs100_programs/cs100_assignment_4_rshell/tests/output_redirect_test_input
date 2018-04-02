@@ -1,0 +1,11 @@
+touch outputFile1
+ls > outputFile1
+touch outPutFile2
+echo Donald Trump is amazing > outputFile2
+touch outputFile3
+echo Make America Great Again | wc > outputFile3
+cat < output_redirect_test_input > outputFile2
+rm outputFile1
+rm outputFile2
+rm outputFile3
+exit
