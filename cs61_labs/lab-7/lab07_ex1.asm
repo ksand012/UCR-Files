@@ -1,0 +1,414 @@
+;=================================================
+; Name: <REMOVED>
+; Email: <REMOVED>
+; 
+; Lab: lab 7
+; Lab section: <REMOVED>
+; TA: <REMOVED>
+;=================================================
+
+.orig x3000
+
+;=========
+;INSTRUCTIONS BELOW
+;=========
+
+LD R0, subroutineInput
+JSRR R0
+
+ADD R5, R5, #1
+
+LD R0, subroutineOutput
+JSRR R0
+
+HALT
+
+subroutineInput .FILL x3200
+subroutineOutput .FILL x3400
+
+.orig x3200
+;Subroutine Instructions
+ST R0, BACKUP_R0_3200
+ST R1, BACKUP_R1_3200
+ST R2, BACKUP_R2_3200
+ST R3, BACKUP_R3_3200
+ST R4, BACKUP_R4_3200
+ST R6, BACKUP_R6_3200
+ST R7, BACKUP_R7_3200
+
+STARTOVER
+AND R5, R5, #0
+AND R6, R6, #0
+
+LD R0, INTROMSG1
+TRAP x22
+
+LD R1, negativeDude
+TRAP x20
+TRAP x21
+
+NOT R2, R0
+ADD R2, R2, #1
+ADD R2, R1, R2
+
+BRz FLAG_BRANCH
+
+LD R1, newlineDude
+NOT R2, R0
+ADD R2, R2, #1
+ADD R2, R1, R2
+
+BRz ERROR_BRANCH
+
+LD R1, positiveDude
+NOT R2, R0
+ADD R2, R2, #1
+LD R6, negativeOneDude
+ADD R2, R1, R2
+
+BRz DO_WHILE_LOOP_1
+
+LD R1, zeroDude
+NOT R2, R0
+ADD R2, R2, #1
+LD R3, amount
+
+DO_WHILE_LOOP_2
+ADD R4, R1, R2
+BRz ADDING_BRANCH_1
+ADD R1, R1, #1
+ADD R3, R3, #-1
+	
+BRp DO_WHILE_LOOP_2
+	
+END_numLoop1
+
+BRnzp ERROR_BRANCH
+
+DO_WHILE_LOOP_1
+
+TRAP x20
+TRAP x21
+
+LD R1, newlineDude
+NOT R2, R0
+ADD R2, R2, #1
+ADD R2, R1, R2
+	
+BRz END_BRANCH
+
+ADD R6, R6, #1
+LD R1, zeroDude
+NOT R2, R0
+ADD R2, R2, #1
+LD R3, amount
+
+DO_WHILE_LOOP_4
+ADD R4, R1, R2
+BRz ADDING_BRANCH_1
+ADD R1, R1, #1
+ADD R3, R3, #-1
+	
+BRp DO_WHILE_LOOP_4
+	
+END_WHILE_LOOP_4
+
+BRnzp ERROR_BRANCH
+
+ADDING_BRANCH_1
+LD R3, offset
+NOT R3, R3
+ADD R3, R3, #1
+ADD R0, R0, R3
+ST R5, multipleNumbers
+LD R2, nineDude
+LD R3, multipleNumbers
+	
+DO_WHILE_LOOP_3
+ADD R5, R5, R3
+ADD R2, R2, #-1
+
+BRp DO_WHILE_LOOP_3
+
+ADD R5, R5, R0
+	
+END_ADDING_LOOP_1
+	
+BRnzp DO_WHILE_LOOP_1
+
+END_BRANCH
+ADD R6, R6, #0
+
+BRn ERROR_BRANCH
+
+LD R6, flagVar
+
+BRn COMPARISON_BRANCH
+
+LD R0, BACKUP_R0_3200
+LD R1, BACKUP_R1_3200
+LD R2, BACKUP_R2_3200
+LD R3, BACKUP_R3_3200
+LD R4, BACKUP_R4_3200
+LD R6, BACKUP_R6_3200
+LD R7, BACKUP_R7_3200
+
+RET
+
+ERROR_BRANCH
+LD R0, newlineDude
+TRAP x21
+
+LD R0, ERRORMSG1
+TRAP x22
+
+BRnzp STARTOVER
+
+END_ERROR
+
+COMPARISON_BRANCH
+NOT R5, R5
+ADD R5, R5, #1
+LD R0, BACKUP_R0_3200
+LD R1, BACKUP_R1_3200
+LD R2, BACKUP_R2_3200
+LD R3, BACKUP_R3_3200
+LD R4, BACKUP_R4_3200
+LD R6, BACKUP_R6_3200
+LD R7, BACKUP_R7_3200
+
+RET
+
+FLAG_BRANCH
+
+LD R6, negativeOneDude
+ST R6, flagVar
+LD R6, negativeOneDude
+
+BRnzp DO_WHILE_LOOP_1
+
+END_FLAG
+
+
+
+offset .FILL #48
+negativeDude .FILL x2D
+positiveDude .FILL x2B
+zeroDude .FILL x30
+amount .FILL #10
+newlineDude .FILL x0A
+negativeOneDude .FILL #-1
+nineDude .FILL #9
+
+flagVar .BLKW 1
+multipleNumbers .BLKW 1
+
+INTROMSG1 .FILL x6000
+ERRORMSG1 .FILL x6100
+BACKUP_R0_3200 .BLKW 1
+BACKUP_R1_3200 .BLKW 1
+BACKUP_R2_3200 .BLKW 1
+BACKUP_R3_3200 .BLKW 1
+BACKUP_R4_3200 .BLKW 1
+BACKUP_R6_3200 .BLKW 1
+BACKUP_R7_3200 .BLKW 1
+
+.orig x3400
+;Subroutine Instructions
+ST R0, BACKUP_R0_3400
+ST R1, BACKUP_R1_3400
+ST R2, BACKUP_R2_3400
+ST R3, BACKUP_R3_3400
+ST R4, BACKUP_R4_3400
+ST R5, BACKUP_R5_3400
+ST R7, BACKUP_R7_3400
+
+LD R2, num10000
+NOT R2, R2
+ADD R2, R2, #1
+LD R3, negativenum1
+LD R4, stepoff3400
+ST R5, currentRegister
+AND R1, R5, #-1
+
+BRzp DO_WHILE_LOOP_5
+
+LD R0, negativenum3400
+TRAP x21
+
+NOT R5, R5
+ADD R5, R5, #1
+ST R5, currentRegister
+
+DO_WHILE_LOOP_5
+ADD R3, R3, #1
+ADD R5, R5, R2
+
+BRzp DO_WHILE_LOOP_5
+
+ADD R0, R3, R4
+TRAP x21
+
+ADD R3, R3, #-1
+
+LD R5, currentRegister
+ADD R3, R3, #0
+
+BRn END_WHILE_LOOP_6
+
+DO_WHILE_LOOP_6
+ADD R5, R5, R2
+ADD R3, R3, #-1
+	
+BRzp DO_WHILE_LOOP_6
+	
+END_WHILE_LOOP_6
+
+ST R5, currentRegister
+LD R2, num1000
+NOT R2, R2
+ADD R2, R2, #1
+LD R3, negativenum1
+
+DO_WHILE_LOOP_7
+ADD R3, R3, #1
+ADD R5, R5, R2
+
+BRzp DO_WHILE_LOOP_7
+
+ADD R0, R3, R4
+TRAP x21
+
+LD R5, currentRegister
+ADD R3, R3, #0
+
+BRz END_WHILE_LOOP_8
+
+DO_WHILE_LOOP_8
+ADD R5, R5, R2
+ADD R3, R3, #-1
+	
+BRp DO_WHILE_LOOP_8
+
+END_WHILE_LOOP_8
+ST R5, currentRegister
+LD R2, num100
+
+NOT R2, R2
+ADD R2, R2, #1
+
+LD R3, negativenum1
+
+DO_WHILE_LOOP_9
+ADD R3, R3, #1
+ADD R5, R5, R2
+
+BRzp DO_WHILE_LOOP_9
+
+ADD R0, R3, R4
+TRAP x21
+
+LD R5, currentRegister
+ADD R3, R3, #0
+
+BRz END_WHILE_LOOP_10
+
+DO_WHILE_LOOP_10
+ADD R5, R5, R2
+ADD R3, R3, #-1
+	
+BRp DO_WHILE_LOOP_10
+
+ST R5, currentRegister
+
+END_WHILE_LOOP_10
+
+LD R2, num10
+
+NOT R2, R2
+ADD R2, R2, #1
+
+LD R3, negativenum1
+
+DO_WHILE_LOOP_11
+ADD R3, R3, #1
+ADD R5, R5, R2
+
+BRzp DO_WHILE_LOOP_11
+
+ADD R0, R3, R4
+TRAP x21
+
+LD R5, currentRegister
+ADD R3, R3, #0
+
+BRz END_WHILE_LOOP_12
+
+DO_WHILE_LOOP_12
+ADD R5, R5, R2
+ADD R3, R3, #-1
+	
+BRp DO_WHILE_LOOP_12
+
+ST R5, currentRegister
+
+END_WHILE_LOOP_12
+
+LD R2, num1
+
+NOT R2, R2
+ADD R2, R2, #1
+
+LD R3, negativenum1
+
+DO_WHILE_LOOP_13
+ADD R3, R3, #1
+ADD R5, R5, R2
+
+BRzp DO_WHILE_LOOP_13
+
+ADD R0, R3, R4
+TRAP x21
+
+LEA R0, 3400newline
+TRAP x22
+
+LD R0, BACKUP_R0_3400
+LD R1, BACKUP_R1_3400
+LD R2, BACKUP_R2_3400
+LD R3, BACKUP_R3_3400
+LD R4, BACKUP_R4_3400
+LD R5, BACKUP_R5_3400
+LD R7, BACKUP_R7_3400
+
+RET
+
+negativenum1 .FILL #-1
+num1 .FILL #1
+num10 .FILL #10
+num100 .FILL #100
+num1000 .FILL #1000
+num10000 .FILL #10000
+stepoff3400 .FILL #48
+negativenum3400 .FILL x2D
+3400newline .FILL x0A
+
+currentRegister.BLKW 1
+
+BACKUP_R0_3400 .BLKW 1
+BACKUP_R1_3400 .BLKW 1
+BACKUP_R2_3400 .BLKW 1
+BACKUP_R3_3400 .BLKW 1
+BACKUP_R4_3400 .BLKW 1
+BACKUP_R5_3400 .BLKW 1
+BACKUP_R7_3400 .BLKW 1
+
+;------------
+;Remote data
+;------------
+.ORIG x6000
+INTROMSG2 .STRINGZ "Input a positive or negative decimal number (max 5 digits), followed by ENTER\n"
+.ORIG x6100
+ERRORMSG2 .STRINGZ "ERROR INVALID INPUT\n"
+
+.end
