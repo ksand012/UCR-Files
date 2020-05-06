@@ -1,0 +1,412 @@
+\documentclass{article}
+
+\usepackage{fullpage,latexsym,picinpar,amsmath,amsfonts,graphicx}
+
+\input{macros.tex}
+
+\begin{document}
+\centerline{REMOVED}
+\centerline{REMOVED}
+\centerline{\large \bf CS/MATH111 ASSIGNMENT 3}
+%\centerline{due Monday, February 25 (11:50PM)}
+
+\vskip 0.2in
+%\noindent{\bf Individual assignment:} Problems 1 and 2.
+
+%\noindent{\bf Group assignment:} Problems 1 and 2.
+
+\vskip 0.2in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Solve the following recurrence equation:
+%
+\begin{eqnarray*}
+        A_n &=& A_{n-1} + 2A_{n-2} + 3^n\\
+        A_0 &=& 0 \\
+        A_1 &=& 4
+\end{eqnarray*}
+%
+Show your work (all steps: the associated homogeneous equation,
+the characteristic polynomial and its
+roots, the general solution of the homogeneous
+equation, computing a particular solution,
+the general solution of the non-homogeneous equation,
+using the initial conditions to compute the final solution.)
+\end{problem}
+\newline
+
+\begin{solution}
+Associated homogeneous solution: $A_{n} = A_{n-1} + 2A_{n-2}$
+\newline
+Characteristic polynomial: $A_n - A_{n-1} - 2A_{n-2} = 0$
+\newline
+$A^2-A-2=0$ = $(A-2)(A+1)=0$
+\newline
+Roots: A=2, A=-1
+\newline
+General solution of homogeneous equation:
+$\alpha_1 \cdot (2)^n + \alpha_2 \cdot (-1)^n = A'_n$
+\newline
+
+According to the slides, the form that a particular solution takes if the number is not a root of the function is, in our case, $c3^n$.
+\newline
+
+We then solve for c to know what exactly our particular solution is:
+\newline
+
+$c3^{(n-1)}+2c3^{(n-2)}+3^n = c3^n$
+\newline
+
+We can then simply from here:
+\newline
+
+$3c + 2c + 9 = 9c$
+\newline
+
+$c = \dfrac{9}{4}$
+\newline
+
+So, plugging it back in to the original formula, our particular solution becomes:
+\newline
+
+$A'_n = (\dfrac{9}{4}) \cdot 3^n$
+\newline
+
+Now that we have both our general homogeneous solution and our particular solution, we can add them together to get the general non-homogeneous solution from the formula $f_n = f'_n + f''_n$
+\newline
+
+$\alpha_1 \cdot (2)^n + \alpha_2 \cdot (-1)^n + (\dfrac{9}{4}) \cdot 3^n$
+\newline
+
+We now have all the information we need to solve for the final answer to the non-homogeneous solution:
+\newline
+
+$\alpha_1 \cdot (2)^0 + \alpha_2 \cdot (-1)^0 + (\dfrac{9}{4}) \cdot 3^0 = 0$
+$\alpha_1 + \alpha_2 + (\dfrac{9}{4})$
+\newline
+
+$\alpha_1 \cdot (2)^1 + \alpha_2 \cdot (-1)^1 + (\dfrac{9}{4}) \cdot 3^1 = 4$
+$2\alpha_1 - \alpha_2 + (\dfrac{27}{4}) = 4$
+\newline
+
+Now we can cancel out the $\alpha_2$'s. We are left with:
+\newline
+$3\alpha_1 + 9 = 4$
+\newline
+$\alpha_1 = \dfrac{-5}{3}$
+\newline
+$\alpha_2 = \dfrac{5}{3} - \dfrac{9}{4}$
+\newline
+$\alpha_2 = \dfrac{-7}{12}$
+\newline
+
+We plug these values back in to the starting non-homogeneous solution to get the final solution of:
+\newline
+$A_n = (\dfrac{-5}{3}) \cdot 2^n - (\dfrac{7}{12}) \cdot (-1)^n + (\dfrac{9}{4}) \cdot 3^n$
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip 0.3in
+
+\begin{problem}
+Give the asymptotic value (using the $\Theta$-notation)
+for the number of letters that will be printed by the algorithms below.
+In each algorithm the argument $n$ is a positive integer.
+Your solution needs to consist of an appropriate recurrence 
+equation and its solution. You also need to give a brief justification for
+the recurrence. 
+
+\bigskip
+\noindent
+Part (a) 
+\vskip 0.2in
+\noindent(i)\ \ 
+\begin{minipage}[t]{3in}
+\begin{tabbing}
+aaa \= aaa \= aaa \= aaa \=  \kill
+\textbf{Algorithm} \textsc{PrintAs} $(n: \mbox{\bf integer})$ \\
+          \> \textbf{if} $n < 4$ \\
+          \>\>  print(``A") \\
+          \>\textbf{else} \\
+          \>\>  \textsc{PrintAs}$(\ceiling{n/3})$\\
+          \>\>  \textsc{PrintAs}$(\ceiling{n/3})$\\
+          \>\>  \textsc{PrintAs}$(\ceiling{n/3})$\\
+          \>\>  \textsc{PrintAs}$(\ceiling{n/3})$\\
+           \>\>  \textsc{PrintAs}$(\ceiling{n/3})$\\
+      \>\> \textbf{for} $i \leftarrow 1$ \textbf{to} $4n^2$ \textbf{do} print(``A")
+\end{tabbing}
+\end{minipage}
+
+\vskip 0.2in
+\noindent
+(ii)\ \
+\begin{minipage}[t]{3in}
+\begin{tabbing}
+aaa \= aaa \= aaa \= aaa \=  \kill
+\textbf{Algorithm} \textsc{PrintBs} $(n: \mbox{\bf integer})$ \\
+          \> \textbf{if} $n < 2$ \\
+          \>\>  print(``B") \\
+          \>\textbf{else} \\
+          \>\>  \textbf{for} $j \leftarrow 1$ \textbf{to} $8$ 
+					\textbf{do} \textsc{PrintBs}$(\floor{n/2})$\\
+      \>\> \textbf{for} $i \leftarrow 1$ \textbf{to} $10n^3$ \textbf{do} print(``B")
+\end{tabbing}
+\end{minipage}
+
+\vskip 0.2in
+\noindent
+(iii)\ \ 
+\begin{minipage}[t]{3in}
+\begin{tabbing}
+aaa \= aaa \= aaa \= aaa \=  \kill
+\textbf{Algorithm} \textsc{PrintCs} $(n: \mbox{\bf integer})$ \\
+          \> \textbf{if} $n < 3$ \\
+          \>\>  print(``C") \\
+          \>\textbf{else} \\
+          \>\>  \textsc{PrintCs}$(\ceiling{n/2})$\\
+          \>\>  \textsc{PrintCs}$(\ceiling{n/2})$\\
+          \>\>  \textsc{PrintCs}$(\ceiling{n/2})$\\
+          \>\>  \textsc{PrintCs}$(\ceiling{n/2})$\\
+      \>\> \textbf{for} $i \leftarrow 1$ \textbf{to} $20$ \textbf{do} print(``C")
+\end{tabbing}
+\end{minipage}
+
+\vskip 0.3in
+\noindent
+Part (b)
+\vskip 0.2in
+(iv)\ \
+\begin{minipage}[t]{3in}
+\begin{tabbing}
+aaa \= aaa \= aaa \= aaa \=  \kill
+\textbf{Algorithm} \textsc{PrintDs} $(n: \mbox{\bf integer})$ \\
+          \> \textbf{if} $n < 2$ \\
+          \>\>  print(``D") \\
+          \>\textbf{else} \\
+          \>\>  \textbf{for} $j \leftarrow 1$ \textbf{to} $4$ 
+					\textbf{do} \textsc{PrintDs}$(\floor{n/2})$\\
+      \>\> \textbf{for} $i \leftarrow 1$ \textbf{to} $10n^k$ \textbf{do} print(``D"),
+\end{tabbing}
+%\vskip 0.1in     
+      where $k$ is a nonnegative integer.
+
+\end{minipage}
+\end{problem}
+
+
+\begin{solution}
+
+\\\\(a i)
+\\\\ There are 5 recursive calls in this function of $\frac{n}{3}$
+\\\\ $4n^2$ is called at the end
+\\\\ This gives a formula of:
+\\ $x(n) = 5x(\frac{n}{3})+4n^2$
+\\\\ This gives values of:
+\\ $a=5, b=3, c=4, d=2$
+\\ $b^d = 3^2=9$
+\\ $5 < 9$ Therefore:
+\\ $T(n) = \Theta(n^d) = \Theta(n^2)$
+\newline
+\\\\(a ii)
+\\ There are 8 recursive calls in this function of $\frac{n}{2}$
+\\ $10n^3$ is called at the end
+\\\\ This gives a formula of:
+\\ $x(n) = 8x(\frac{n}{2})+10^3$
+\\\\ This gives values of:
+\\ $a=8, b=2, c=10, d=3$
+\\ $b^d = 2^3 = 8$
+\\ $8=8$ Therefore:
+\\ $T(n) = \Theta(n^dlog(n))$
+\\ T(n) = \Theta(n^3log(n))
+\newline
+\\\\ $(a iii)$
+\\\\ There are 4 recursive calls in this function of $\frac{n}{2}$
+\\\\ $20$ is called at the end
+\\\\ This gives a formula of:
+\\ $x(n) = 4x(\frac{n}{2})+20$
+\\\\ This gives values of:
+\\ $a=4, b=2, c=20, d=0$
+\\ $b^d = 2^0 = 1$
+\\ $4>1$ Therefore:
+\\ $T(n) = \Theta(n^{log_b a}) = \Theta(n^{log_2 4}) = \Theta(n^2)$
+\newline
+\\\\ (b iv)
+\\\\ There are 4 recursive calls in this function of $\frac{n}{2}$
+\\\\ $10n^k$ is called at the end
+\\\\ This gives a formula of:
+\\ $x(n) = 4x(\frac{n}{2})+10n^k$
+\\\\ This gives values of:
+\\ $a=4, b=2, c=10, d=k$
+\\ $b^d = 2^k$
+\\\\ This gives three conditions:
+\\ if $ k <= 1: \Theta(n^{log_2 k})$
+\\ if $k=2: \Theta(n^2log(2))$
+\\ if $k >= 3: \Theta(n^k)$
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip 0.4in
+\begin{problem}
+Bill is buying his wife a bouquet of carnations, roses, tulips, daises, and lilies. 
+The bouquet will have $28$ flowers, with 
+%
+\begin{itemize} 
+		\item at most $6$ carnations, 
+		\item between $3$ and $7$ roses,
+        \item between $2$ and $15$ tulips,
+        \item at most $4$ daises, and
+    	\item at least $1$ lily.
+
+\end{itemize}
+%
+How many different combinations of flowers satisfy these requirements?
+You need to use the counting method for integer partitions and show your work.
+%\end{problem}
+
+\begin{solution}
+\newline
+R = roses
+\newline
+T = tulips
+\newline
+L = lilies
+\newline
+C = carnations
+\newline
+D = Daisies
+\newline
+
+
+\\\\ R, T, D, L, C, total of: 28
+\newline
+
+\\ $c \le 6$
+\newline
+\\ $3 \le R \le 7$ \xrightarrow{$R = R' + 3$}\xrightarrow{$R' = R - 3$}
+\newline
+\\ $2 \le T \le 15$ \xrightarrow{$T = T' + 2$}\xrightarrow{$T' = T - 2$}
+\newline
+\\ $D \le 4$
+\newline
+\\ $1 \le L$ \xrightarrow{$L = L' + 1$}\xrightarrow{$L' = L - 1$}
+\newline
+\\ $C+T+D+L+R = 28$
+\newline
+\\ $C+R'+T'+D+L' = 22$
+\newline
+
+\\ $0 \le C \le 6$
+\\ $0 \le R' \le 4$
+\\ $0 \le T' \le 13$
+\\ $0 \le D \le 4$
+\\ $0 \le L'$
+\newline
+
+\\ $S = ({28+(5-1) \choose (5-1)}) = ({32 \choose 4}) = \frac{32!}{(32-4)! \cdot 4!} = \frac{32*31*30*29*28!}{4!*28!} = 35,960$
+\newline
+
+\\ $S_{total} - S(c\ge7 \cup R' \ge 8 \cup T' \ge 16 \cup D \ge 5 \cup L' \le 0)$
+\newline
+
+\\\\ This can then be broken up into:
+\\ $S_{total}-S(S(C \ge 7)+S(R' \ge 8)+S(T' \ge 16)+S(D \ge 5)+S(L' \le 0) -S(c \ge \cap R' \ge 8)- S(C \ge 7 \cap T' \ge 16)- S(C \ge 7 \cap D \ge 5)- S(C \ge 7 \cap L' \le 0)- S(R' \ge 8 \cap T' \ge 16)- S(R' \ge 8 \cap D \ge 5)- S(R' \ge 8 \cap L' \le 0)- S(T' \ge 16 \cap D \ge 5)- S(T' \ge 16 \cap L' \le 0)- S(D \ge 5 \cap L' \le 0) + S(c \ge 7 \cap R' \ge 8 \cap T' \ge 16 \cap d \ge 5 \cap L' \le 0))$
+\newline
+
+\\\\ This can then be turned into:
+\\ $35,960 - (({22-7+4 \choose (5-1)}) + ({22-8+4 \choose (5-1)}) + ({22-16+4 \choose (5-1)}) + ({22-5+4 \choose (5-1)}) + ({22-0+4 \choose (5-1)}) - ({22-7-8+4 \choose (5-1)}) - ({22-7-16+4 \choose (5-1)}) - ({22-7-5+4 \choose (5-1)}) + ({22-7-0+4 \choose (5-1)}) - ({22-8-16+4 \choose (5-1)}) - ({22-8-5+4 \choose (5-1)}) - ({22-8-0+4 \choose (5-1)}) ({22-16-5+4 \choose (5-1)}) - ({22-16-0+4 \choose (5-1)}) - ({22-5-0+4 \choose (5-1)}) + ({22-8-5-16-7-0+4 \choose (5-1)}))$
+\newline
+
+\\\\ This reduces to:
+\\ $35,960 - ( {19 \choose 4} + {18 \choose 4} + {10 \choose 4} + {21 \choose 4} + {26 \choose 4} - {11 \choose 4} - {3 \choose 4} - {14 \choose 4} - {19 \choose 4} - {2 \choose 4} - {13 \choose 4} - {18 \choose 4} - {5 \choose 4} - {10 \choose 4} - {21 \choose 4} + {0 \choose 4} )$
+\newline
+
+\\\\ This gives:
+\\ $35,960 - ((\frac{19!}{(19-4)4!}) + (\frac{18!}{(18-4)4!}) + (\frac{10!}{(10-4)4!}) + (\frac{21!}{(21-4)4!}) + (\frac{26!}{(26-4)4!}) - (\frac{11!}{(11-4)4!}) - (\frac{3!}{(3-4)4!}) - (\frac{14!}{(14-4)4!}) - (\frac{19!}{(19-4)4!}) - (\frac{2!}{(2-4)4!}) - (\frac{13!}{(13-4)4!}) - (\frac{18!}{(18-4)4!}) - (\frac{5!}{(5-4)4!}) - (\frac{10!}{(10-4)4!}) - (\frac{21!}{(21-4)4!}) - (\frac{0!}{(0-4)4!}))$
+\newline
+
+\\\\ Which is:
+\\ $35,960 - (3876 + 3060 + 210 + 5985 + 14950 - 330 - 0 - 1001 -3876 - 0 - 715 - 3060 - 5 - 210 - 5985 + 0) =$
+\\ $35,960 - 12,899 = 23,061$
+\newline
+
+\\\\ So there are $23,061$ different combinations. 
+
+\end{solution}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bigskip
+\begin{problem}
+\noindent 
+We have three sets $P$, $Q$, $R$
+with the following properties:
+
+\begin{description}
+
+\item{(a)}  $|P| = 3|Q|$ and 
+                $|R| = |P|$,
+
+\item{(b)} $|P\cap Q| = 11$,
+        $ |Q\cap R|  = 14$,
+        $ |P\cap R| = 2|Q|$,
+
+\item{(c)}
+$7\le |P\cap Q\cap R| \le 17$,
+
+\item{(d)}
+$|P\cup Q\cup R| = 100$.
+
+\end{description}
+
+Use the inclusion-exclusion principle to
+determine the number of elements in $P$.
+Show your work.
+(Hint: You may get an equation with two unknowns, but one of them has only a few possible values.)
+\end{problem}
+
+
+\end{problem}
+
+\begin{solution}
+
+\\\\ Using the inclusion exclusion formula:
+\\ $|A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|$
+\\\\ With the given values the below equation can be created:
+\\ $100 = 3|Q| + 3|Q| + |Q| - 11 - 14 - 2|Q| + |P \cap Q \cap R|$
+\\\\ This can be reduced to:
+\\ $100 = 5|Q| - 25 + |P \cap Q \cap R|$
+\\ $25 = |Q| + \frac{|P \cap Q \cap R|}{5}$
+\\\\ This means that the $|P \cap Q \cap R|$ value must be evenly divisible by 5 as there isn't a fraction of elements possible.
+\\\\ The options of numbers that could be this value are:
+\\ $7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17$
+\\\\ Of these values only 10 and 15 are divisible by five so one of those two values must be correct.
+\\\\ This can be decided with the given: $|P| = 3|Q|$
+\\\\ This means $|Q|$ must be a value evenly divisible by 3 to get a whole number of values for $|P|$ as $\frac{|P|}{3} = |Q|$
+\\\\ This value must satisfy both $25 = |Q| + \frac{|P \cap Q \cap R|}{5}$ and $\frac{|P|}{3} = |Q|$ with whole numbers
+\\\\ If $|P \cap Q \cap R| = 10$:
+\\ Then $|Q| = 23$
+\\ Solved this gives a $|P|$ of 69.
+
+\\\\ If $|P \cap Q \cap R| = 15$:
+\\ Then $|Q| = 22$
+\\ Solved this gives a $|P|$ of 66.
+\newline
+
+\\\\ Of these two the value that holds 15 for $|P \cap Q \cap R|$ can be discounted as it falls outside the bounds of $|P \cup Q|$ and $|Q \cup R|$
+\\\\ Therefore $|P|$ must be 69.
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip 0.1in
+\paragraph{Submission.}
+To submit the homework, you need to upload the pdf file into ilearn and Gradescope.
+
+
+\end{document}
+
