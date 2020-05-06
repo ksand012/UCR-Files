@@ -1,0 +1,275 @@
+\documentclass{article}
+
+\usepackage{fullpage,latexsym,picinpar,amsmath,amsfonts}
+
+\input{macros.tex}
+
+\begin{document}
+\centerline{REMOVED}
+\centerline{REMOVED}
+\centerline{\large \bf CS/MATH111 ASSIGNMENT 2}
+
+
+\vskip 0.1in
+%\noindent{\bf Individual assignment:} Problems 1 and 2.
+
+%\noindent{\bf Group assignment:} Problems 1,2 and 3.
+
+\vskip 0.2in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+
+Let $n = p_1 p_2 ... p_k$, where $p_1, p_2, ..., p_k$ are different primes. Prove that $n$ has exactly $2^k$ different divisors. 
+For example, if $n = 105$, then n = $3 \cdot 5 \cdot 7$, so $k = 3$, and thus $n$ has $2^3 = 8$ divisors. These divisors are: $1, 3, 5, 7, 15, 21, 35, 105$.
+Hint. You can reduce the problem to counting other objects that we already know how to count. Alternatively, this can be proved by induction on $k$.
+
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{solution}
+
+The divisors of $n$ are $1$ and the numbers that can be made by taking the product of different combinations of the prime factors of $n$.
+For example if the prime factors of n are $p_1, p_2,$ and $p_3$, then its divisors are $1, p_1, p_2, p_3, p_1p_2, p_1p_3, p_2p_3,$ and  $p_1p_2p_3$
+
+\smallskip
+
+If $k$ is the number of prime factors of $n$, we can find the number of divisors of $n$ by counting how many combinations of the primes factors of $n$ we can make using $1$ number up to $k$ numbers, plus $1$ because 1 is also a divisor of $n$. This can be written as:
+$$\sum_{i=1}^k {k \choose i}+1$$
+Because ${k \choose 0} = 1$ we can rewrite the above as:
+$$\sum_{i=0}^k {k \choose i}$$
+Recall the Binomial Theorem:
+$$\sum_{i=0}^k {k \choose i}a^{k-i}b^{i} = (a+b)^{k}$$
+If we apply the Binomial Theorem we get:
+$$\sum_{i=0}^k {k \choose i}=\sum_{i=0}^k {k \choose i}(1)^{k-i}(1)^{i}=(1+1)^{k} = 2^{k}\>\>\>\>\>\>\>\>\>\>\>\>\>\>\square$$
+
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Alice's RSA public key is $P = (e,n) = (13,77)$.
+Bob sends Alice the message by encoding it as follows.
+First he assigns numbers to characters:
+A is 2, B is 3, ..., Z is 27, and blank is 28. Then he
+uses RSA to encode each number separately. 
+
+Bob's encoded message is:
+
+\begin{verbatim}
+     10       7      58      30      23      62 
+      7      64      62      23      62      61 
+      7      41      62      21       7      49 
+     75       7      69      53      58      37 
+     37      41      10      64      50       7 
+     10      64      21      62      61      35 
+     62      61      62       7      52      10 
+     21      58       7      49      75       7 
+     62      26      22      53      30      21 
+     10      37      64
+\end{verbatim}
+
+Decode Bob's message.
+Notice that you don't have Bob's secrete key, so you
+need to ``break" RSA to decrypt his message.
+
+\smallskip
+For the solution, you need to provide the following:
+%
+\begin{itemize}
+%
+\item Describe step by step how you arrived at the solution.
+	In particular, explain how you determined $p$, $q$, $\phi(n)$, and $d$.
+%
+\item Show the calculation that determines the first letter in the message from the first number in ciphertext.
+%
+\item Give Bob's message in plaintext. The message is a quote. Who said it?
+%
+\item If you wrote a program, attach your code to the hard copy.
+	If you solved it by hand (not recommended), attach your scratch paper with calculations
+	for at least 5 first letters.
+%
+\end{itemize}
+
+Suggestion: this can be solved by hand, but it will probably
+be faster to write a short program.
+\end{problem}
+
+\begin{solution}
+We need to figure out Bob's secret key by "Breaking" RSA. This is done through guessing factorization of $n$. We first factor $n$. $n$ = 77, which can be broken up into $11 * 7$. These numbers are prime numbers. $p=7$ and $q = 11$.
+\newline
+
+We then compute Euler's Totient Function $φ(n)$:
+\newline
+
+$φ(n) = (p-1)(q-1) = (7-1)(11-1) = 6*10 = 60.$
+\newline
+
+We now compute the secret key $d$ by computing $e^{-1}(modφ(n))$ and solve by using the formula:
+\newline
+
+$d = e^{-1} (modφ(n))$
+
+$= 13^{-1} (mod(60)) $
+\newline
+
+which turns into $13a = 60b + 1$
+\newline
+
+$13a = 60b + 1$
+\newline
+
+$0 = 8b (mod 13) + 1 $
+\newline
+
+$8b = -1 (mod 13) $
+\newline
+
+Find a multiple of 8 by adding 13 each time, which will result in getting 64.
+\newline
+
+$b = 64 / 8 = 8 $
+\newline
+
+Put b back into original equation, where b = 8
+\newline
+
+$13 a = 8 * 60 + 1 = 481$
+\newline
+
+$481 / 13 = 37 $
+\newline
+
+$d = 37$
+\newline
+
+Using the private key pair ($d, n$), where it is ($37, 77$) we can now decrypt messages by $M = C^{d} (mod(n))$ where C is the encrypted messages. So it would be: $M = C^{37} * mod(77)$
+\newline
+
+The calculation for the first letter in the message from the first number in ciphertext is:
+
+The first number in ciphertext is 10.
+\newline
+10^{d}\pmod{n} = 10^{37}\pmod{77} \\
+= (10^2)^{18}* 10\pmod{77} = 23^{18}* 10\pmod{77} \\
+= (23^2)^{9}* 10\pmod{77} = 67^9* 10\pmod{77} \\
+= (67^2)^{4}* 67* 10\pmod{77} = 23^4* 67* 10\pmod{77} \\ 
+= (23^2)^{2}* 670\pmod{77} = 67^2* 670\pmod{77} \\ 
+= 23* 670\pmod{77} = 15,410\pmod{77} = 10 \\ 
+\newline
+\textrm{The number that was decrypted from the ciphertext is 10, and based on the required formula, the character value is "I"}
+\newline
+
+After running the code, we get the following decrypted message from Bob: 
+\newline
+
+"I HAVE NEVER LET MY SCHOOLING INTERFERE WITH MY EDUCATION".
+\newline
+This is a quote by Mark Twain.
+\newline
+
+The code for solution 2 is on the last page of this assignment.
+
+\newline
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+(a) Compute $13^{-1}\pmod{19}$ by enumerating multiples of the number and the modulus.
+Show your work.
+
+\smallskip\noindent
+(b) Compute $13^{-1}\pmod{19}$ using Fermat's theorem. Show your work.
+
+\smallskip\noindent
+(c) Compute $13^{-40}\pmod{19}$ using Fermat's theorem. Show your work.
+
+\smallskip\noindent
+(d) Find a number $x\in\braced{1,2,...,36}$
+	such that $8x \equiv 3 \pmod{37}$. Show your work.
+	(You need to follow the method covered in class; brute-force checking
+	all values of $x$ will not be accepted.)
+\end{problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{solution}
+
+\smallskip\noindent
+(a) We must find an x and y that satisfy $13x + 19y = 1$
+To solve this we can enumerate multiples of 13 and 19
+
+\noindent
+13: 13, 26, 39
+
+\noindent
+19: 19, 38
+
+\noindent
+We can see that $x = 3$ and $y = -2$ is a solution
+
+\noindent
+Therefore $13^{-1} = 3$ (mod 19)
+
+\smallskip\noindent
+(b) By Fermats Little Theorem: 
+
+$a^{p-1} \equiv 1$ \pmod{p}
+
+$a * a^{p-2} \equiv 1$ \pmod{p}
+
+$a^{-1}$ (mod p) \equiv $a^{p-2}\pmod{p}$ 
+
+$$13^{-1} \pmod{19} \equiv 13^{19-2} \equiv 13^{17} \pmod{19}$$
+$$13 \equiv 13 \pmod{19}$$
+$$13^{2} \equiv 17 \pmod{19}$$
+$$13^{4} \equiv 13^{2} * 13^{2} \equiv 17^{2} \pmod{19} \equiv 4 \pmod{19}$$
+$$13^{8} \equiv 13^{4} * 13^{4} \equiv 4^{2} \pmod{19} \equiv 16 \pmod{19}$$
+$$13^{16} \equiv 13^{8} * 13^{8} \equiv (13^{8})^{2} \equiv 16^{2} \pmod{19} \equiv 9 \pmod{19}$$
+$$13^{17} \equiv 13 * 13^{16} \equiv 13*9 \pmod{19} \equiv 117 \pmod{19} \equiv 3$$
+$$13^{-1} \equiv 3 \pmod{19}$$
+
+\smallskip\noindent
+(c) We can rewrite $13^{-40}\pmod{19}$ as $(13^{40})^{-1}\pmod{19}$
+
+\smallskip\noindent
+Using Fermat's Theorem:
+$$(13^{40})^{-1} = (13^{40})^{17} = 13^{680}\pmod{19}$$
+$$13^{18} = 1 \pmod{19}$$
+$$13^{680} = 13^{37*18+14} = (13^{18})^{37}*13^{14} = 13^{14}\pmod{19}$$
+$$13^{14} = 13^{8+4+2} = 16*4*17 = 1088 = 5\pmod{19}$$
+$$13^{-40} = 5\pmod{19}$$
+
+\smallskip\noindent
+(d) We can find $8^{-1}$ (mod 37) by enumerating multiples of 37 + 1
+
+\smallskip\noindent
+$8x\in\braced{1, 38, 75, 112, 149, ...}$
+
+\smallskip\noindent
+$8 * 14 = 112$ so 
+
+\smallskip\noindent
+$8^{-1} = 14$ (mod 37)
+
+\smallskip\noindent
+$x = 3 * 8^{-1}$ (mod 37) $ = 3*14 = 42 = 5$ (mod 37)
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip 0.1in
+\paragraph{Submission.}
+To submit the homework, you need to upload the pdf file into gradescope
+by Friday, May 4 (noon).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
