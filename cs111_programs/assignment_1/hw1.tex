@@ -1,0 +1,354 @@
+
+
+\documentclass{article}
+
+\usepackage{fullpage,latexsym,picinpar,amsmath,amsfonts}
+
+\input{macros.tex}
+
+\begin{document}
+\centerline{REMOVED}
+\centerline{REMOVED}
+\centerline{\large \bf CS/MATH111 ASSIGNMENT 1}
+
+\vskip 0.1in
+
+\vskip 0.2in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Let $W(n)$ be the number of
+times ``whatsup" is printed by Algorithm~\textsc{WhatsUp} (see below) on input $n$.
+Determine the asymptotic value of $W(n)$.
+
+
+\begin{tabbing}
+aa \= aa \= aa \= aa \= aa \= aa \= \kill
+\textbf{Algorithm} \textsc{WhatsUp} $(n: \mbox{\bf integer})$ \\
+      \> \textbf{for} $i \leftarrow 1$ \textbf{to} $2n$
+                         \textbf{do} \\
+      \> \> \textbf{for} $j \leftarrow 1$ \textbf{to} $(i+1)^2$ \textbf{do} \\
+      \> \> \> print(``whatsup")
+\end{tabbing}
+
+Your solution must consist of the following steps:
+%
+\begin{description}
+\item{(a)} First express $W(n)$ using summation notation $\sum$.
+\item{(b)} Next, give a closed-form formula for $W(n)$. (A "closed-form formula"  
+			should be a simple arithmetic expression without 
+			any summation symbols.)
+\item{(c)}  Finally, give the asymptotic value of $W(n)$ using the $\Theta$-notation. 
+\end{description}
+%
+Show your work. Include a justification for each step. 
+
+\smallskip
+\noindent
+\emph{Note:} If you need any summation formulas for this problem, you are allowed to
+look them up.
+\end{problem}
+
+\begin{solution}
+\begin{description}
+\item{(a)} The algorithm \textsc{WhatsUp} goes through a nested for loop scenario. The first for loop goes through $2n$ times, while the inner for loop goes through $(i+1)^2$ times. This would result in producing a summation notation of $\sum_{i=1}^{2n} {(i+1)^2}$.
+
+\item{(b)} With the summation notation known, we can now solve it below using the following formulas:
+\smallskip
+\begin{equation}
+%
+\frac{2n*(2n+1)(4n+1)}{6} \> \> \> \frac{4n(2n+1)}{2} \> \> \> 2(n)
+\smallskip
+\end{equation}
+You then split the single summation into three separate summations and add them together:
+\smallskip
+\begin{equation}
+\sum_{i=1}^{2n} {i^2} \> + \> \sum_{i=1}^{2n} {2i} \> + \> \sum_{i=1}^{2n} {1}
+\end{equation}
+\smallskip
+We finally solve and simplify the 3 equations.
+\begin{equation}
+    = \frac{2n*(2n+1)(4n+1)}{6} \> + \> \frac{4n(2n+1)}{2} \> + \> 2(n)
+\end{equation}
+\smallskip
+\begin{equation}
+    = \frac{8n^3+18n^2+13n}{3}
+\end{equation}
+
+\item{(c)} With the answer to (b) solved, we can now figure out the asymptotic value of $W(n)$ using the $\Theta$-Notation:
+
+\begin{equation}
+    \frac{8n^3+18n^2+13n}{3} \le \frac{8n^3+18n^3+13n^3}{3}
+\end{equation}
+
+
+The original equation is less than or equal to all the values being raised to the highest power in the polynomial. We can now simplify the answer:
+\smallskip
+\begin{equation}
+    =13n^3
+\end{equation}
+Therefore, the Big $O$ Notation is O($n^3$).
+
+
+
+Now we need to find $\Omega$-Notation:
+
+\smallskip
+\begin{equation}
+\frac{8n^3+18n^3+13n^3}{3} \ge \frac{8n^3+18n^2+13n}{3}
+\end{equation}
+\smallskip
+
+The equation with the highest power in the polynomial is greater than or equal to all the values in the original polynomial. We can now simplify the answer:
+\smallskip
+\begin{equation}
+    =13n^3
+\end{equation}
+Therefore, the Big $\Omega$-Notation Notation is $\Omega$($n^3$).
+
+With these two figures in mind, we can determine that the Big $\Theta$ for this equation is $\Theta$$(n^3)$.
+
+\end{description}
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{equation}{0}
+\begin{problem}
+Consider a sequence defined recursively as
+$T_0 = 1$, $T_1 = 2$, and $T_n = T_{n-1}+3T_{n-2}$ for
+$n\ge 2$. Prove that $T_n = O(2.4^n)$ and $T_n = \Omega(2.3^n)$.
+
+\smallskip
+\noindent
+\emph{Hint:} 
+First, prove by induction that $\half\cdot 2.3^n \le T_n \le 2.4^n$ for all $n\ge 0$.
+%This is similar to the proof from class for the estimate of Fibonacci numbers.
+\end{problem}
+
+\begin{solution}
+\begin{description}
+
+To begin, we first need to prove the base case for $T_k \ge \frac{2.3^k}{2}$
+\begin{equation}
+    n = 0, T_0 = 1 \ge 1 = 2.3^0
+\end{equation}
+\begin{equation}
+    n = 1, T_1 = 2 \ge \frac{2.3}{2} = 2.3^1
+\end{equation}
+
+The base cases prove true, so we move on to our induction step.
+
+Induction:
+\begin{equation}
+T_k = T_{k-1} + 3T_{k-2} \> \> \> \> \textbf{for k} \ge 2
+\end{equation}
+\begin{equation}
+T_k \ge \frac{2.3^{(k-1)}}{2} + 3 * 2.3^{(k-2)}
+\end{equation}
+\begin{equation}
+= \frac{2.3^{(k-1)}}{2} * (3*2.3^{(-1)} + 1)
+\end{equation}
+\begin{equation}
+= \frac{2.3^{(k-1)}}{2} * \frac{5.3}{2.3}
+\end{equation}
+
+
+We can replace $\frac{5.3}{2.3}$ with 2.3 because 2.3 $\le \frac{5.3}{2.3}$
+
+
+\begin{equation}
+\ge \frac{2.3^{(k-1)}}{2} * 2.3 = \frac{2.3^k}{2}
+\end{equation}
+\begin{description}
+Thus $T_k \ge 2.3^n$ for all n $\ge 0$, $T_k = O(\frac{2.3^k}{2})$.
+\end{description}
+
+Next up, we show the second proof, where we need to prove the base case for $T_k \le 2.4^n$.
+
+\begin{equation}
+    n = 0, T_0 = 1 \le 1 = 2.4^0
+\end{equation}
+\begin{equation}
+    n = 1, T_1 = 2 \le 2.4 = 2.4^1
+\end{equation}
+
+The base cases prove true, so we move on to our induction step.
+
+Induction:
+\begin{equation}
+T_k = T_{k-1} + 3T_{k-2} \> \> \> \> \textbf{for k} \ge 2
+\end{equation}
+\begin{equation}
+T_k \le 2.4^{(k-1)} + 3 * 2.4^{(k-2)}
+\end{equation}
+\begin{equation}
+= 2.4^{(k-1)} * (3*2.4^{(-1)} + 1)
+\end{equation}
+\begin{equation}
+= 2.4^{(k-1)} * \frac{5.4}{2.4}
+\end{equation}
+
+
+We can replace $\frac{5.4}{2.4}$ with 2.4 because 2.4 $\ge \frac{5.4}{2.4}$
+
+
+\begin{equation}
+\le 2.4^{(k-1)} * 2.4 = 2.4^k
+\end{equation}
+\begin{description}
+Thus $T_k \le 2.4^n$ for all n $\ge 2$, $T_k = \Omega(2.4^k)$.
+\end{description}
+\begin{description}
+Finally, we have proved that $\frac{1}{2} * 2.3^n \le T_n \le 2.4^n$ for all $n \ge 0$.
+\end{description}
+
+\end{description}
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Give the asymptotic values of the
+following functions, using the $\Theta$-notation:
+%
+\begin{description}
+%
+\item{(a)} $7n^2 + 2n^4 + 3n + 1$
+\item{(b)} $5/n + \log_3 n + 11\sqrt{n}$
+\item{(c)} $2n ( \log n + n^2) + 3n^4/\log n$
+\item{(d)} $25n^{12} +  1.1^n + n^3\log^4 n$
+\item{(e)} $n^72^n + 5\cdot 3^n$
+%
+\end{description}
+%
+Justify your answer.
+(Here, you don't need to give a complete rigorous proof.
+Give only an informal explanation using asymptotic
+relations between the functions $n^c$, $\log n$, and $c^n$.)
+\end{problem}
+
+\begin{solution}
+\begin{description}
+\item{(a)} $f(n) = 7n^2 + 2n^4 + 3n + 1 = \theta(n^4)$
+
+We have $O(n^2) + O(n^4) + O(n) + O(1)$
+
+For $n \ge 1$
+
+$O(1) \le O(n^4)$
+
+$O(n) \le O(n^4)$
+
+$O(n^2) \le O(n^4)$
+
+So, $f(n) = O(n^4)$
+
+$2n^4 \ge n^4$
+
+So, $7n^2 + 2n^4 + 3n + 1 \ge n^4$
+
+Then, $f(n) = \Omega(n^4)$
+
+Therefore, 
+
+$f(n) = \theta(n^4)$
+
+\item{(b)} $f(n) = 5/n + \log_3 n + 11\sqrt{n} = \Theta(n^{1/2})$
+
+For $n \ge 2$, 
+
+$1/n \le n^{1/2}$, so $5/n = O(n^{1/2})$
+
+
+Similarly, 
+
+$\log_3 n \le n^{1/2}$ so $\log_3 n = O(n^{1/2})$
+
+We have $f(n) = 5/n + \log_3 n + 11\sqrt{n}$ = $O(n^{1/2}) + O(n^{1/2}) + O(n^{1/2}) = O(n^{1/2})$
+
+Now $11\sqrt{n} \ge \sqrt{n} = \Omega(n^{1/2})$
+
+Therefore $5/n + \log_3 n + 11\sqrt{n} \ge \sqrt{n}$
+
+So, $f(n) = \Omega(n^{1/2})$
+
+Thus, 
+
+$f(n) = \theta(n^{1/2})$
+
+\item{(c)} $f(n) = 2n ( \log n + n^2) + 3n^4/\log n = \theta(n^4/\log n)$
+
+$2n ( \log n + n^2) + 3n^4/\log n = 2n\log n + 2n^3 + 3n^4/\log n$
+
+$(1/\log n)(2n\log^2 n + 2n^3\log n + 3n^4)$
+
+For $n \ge 1$
+
+$\log^2 n \le n^4$
+
+$n^2 \le n^4$
+
+So $f(n) = (1/\log n)(O(n^4) + O(n^4) + O(n^4)) = O(n^4/\log n)$
+
+$2n ( \log n + n^2) + 3n^4/\log n \ge n^4/\log n$
+
+So $f(n) = \Omega(n^4/\log n)$
+
+Therefore, 
+
+$f(n) = \theta(n^4/\log n)$
+
+
+\item{(d)} $f(n) = 25n^{12} +  1.1^n + n^3\log^4 n = \theta(1.1^n)$
+
+For $ n \ge 1$
+
+$n^{12} \le 1.1^n$
+
+$n^3\log^4 n \le 1.1^n$
+
+So $25n^{12} +  1.1^n + n^3\log^4 n = O(1.1^n)$
+
+$25n^{12} +  1.1^n + n^3\log^4 n \ge 1.1^n$
+
+So $25n^{12} +  1.1^n + n^3\log^4 n = \Omega(1.1^n)$
+
+Therefore,
+
+$f(n) = \theta(1.1^n)$
+
+\item{(e)} $f(n) = n^72^n + 5\cdot 3^n = \theta(3^n)$
+
+$ = 2^n(n^7 + 1.5^n)$
+
+For $n \ge 1$
+
+$n^7 \le 1.5^n$
+
+So $O(2^n)(O(1.5^n) + O(1.5^n)) = O(2^n)O(1.5^n)$
+
+$= O(3^n)$
+
+$n^72^n + 5\cdot 3^n \ge 3^n$
+
+So $n^72^n + 5\cdot 3^n = \Omega(3^n)$
+
+Therefore,
+
+$f(n) = \theta(3^n)$
+
+\end{description}
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vskip 0.1in
+\paragraph{Submission.}
+To submit the homework, you need to upload the pdf file into Gradescope (1 submission per group) and iLearn (each student has to submit individually). Late submissions will not be accepted.
+
+\paragraph{Reminders.}
+Remember that only papers created with {\LaTeX} are accepted. 
+
+\end{document}
+
